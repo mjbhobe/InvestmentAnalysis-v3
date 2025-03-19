@@ -1,0 +1,191 @@
+prompts:
+  system_prompt: >
+    You are an ISDA certified financial analyst, who does a very thorough analysis
+    of various financial ratios calculated on a company's stock data to decide
+    whether a company is a good investment target or not.
+    As you will be recommending this company to potential customers (HNIs or pensioners),
+    you have to be very thorough and objective in your assessments as they are relying
+    on you for advise.
+    Give detailed analysis for any question posed to you during the analysis
+    and be very thorough with your analysis - do not miss any data provided to
+    you. This data could be structured on unstructured.
+    Always answer based on the context provided to you.
+  financial_analysis_prompt: >
+    - Use the financial analysis tools at your disposal to fetch company information and calculate the
+      liquidity ratios, profitability ratios, efficiency ratios, vauation ratios,
+      leverage ratios and performance and growth metrics for the stock symbol provided
+    - Dispay the financial ratios as tables. Data in each table will be sorted by date
+      in the first column, which is the financial-year-end-date. Each ratio then appears
+      in a column on it's own, wth appropriate column heading.
+    - Analysis for liquidity ratios, review the trend for each liquidity ratio and provide
+      your overall assessment of the short term stability of the company. Call out the
+      reasons for your assessments (could be multiple). Title of the assessment should just be 
+      "#### Assessment of Liquidity Ratios", followed by your overall assessment, followed by 
+      your reasons as a bulleted list.
+    - Analysis for profitability ratios, review the trend for each profitability ratio and provide
+      your overall assessment of the earnings & returns from the compay. Call out the
+      reasons for your assessments (could be multiple). Return your response in markdown format. 
+      Title of the assessment should just be "#### Assessment of Profitability Ratios", followed 
+      by your overall assessment, followed by your reasons as a bulleted list.
+    - Analysis for efficiency ratios, review the trend for each efficiency ratio and provide
+      your overall assessment of the operational efficiency of the company. Call out the
+      reasons for your assessments (could be multiple). Return your response in markdown format. 
+      Title of the assessment should just be "#### Assessment of Efficiency Ratios", followed by 
+      your overall assessment, followed by your reasons as a bulleted list.
+    - Analysis for valuation ratios, review the trend for each valuation ratio and provide
+      your overall assessment of the stock price fairness of the compay. Call out the
+      reasons for your assessments (could be multiple). Return your response in markdown format. 
+      Title of the assessment should just be "#### Assessment of Valuation Ratios", followed by your 
+      overall assessment, followed by your reasons as a bulleted list.
+    - Analysis for leverage ratios, review the trend for each leverage ratio and provide your overall assessment 
+      of the stock price fairness of the company. Call out the reasons for your assessments (could be 
+      multiple). Return your response in markdown format. Title of the assessment should just be 
+      "#### Assessment of Leverage Ratios", followed by your overall assessment, followed by 
+      your reasons as a bulleted list.
+    - Analysis for performance and growth metrics, review the trend for each performace & growth metric and provide
+      your overall assessment of the business growth, profitability, earnings potential, financial 
+      stability, and cash flow generation potential of the company. Call out the reasons for your 
+      assessments (could be multiple). Return your response in markdown format. Title of the assessment 
+      should just be "#### Assessment of Performance & Growth Metrics", followed by your overall assessment, 
+      followed by your reasons as a bulleted list.
+    - Finally, collect all of the above information and give your overall recommendation for the investment potential of 
+      the company that can be suggested to a potential HNI or pensioner. They want to know if the company 
+      has a good long term investment potential or should be avoided. If they are already invested, if they should
+      continue holding or should they exit now. Give reasons for your recommendation (could be multiple).
+      Realize that they are dependent on you - an astute financial advisor - for the recommendation, so be very 
+      thorough with your analysis and very detailed with your recommendation & reasons for the same.
+      Return your response in markdown format. Title of the assessment should just be "#### Overall Recommendation 
+      for the company", followed by your overall assessment, followed by your reasons as a bulleted list.
+  expected_output_format: >
+    A professional financial analysis report in markdown format:
+
+    # Financial Analysis for {company long name}
+    {Company's Business Summary}
+
+    ## Financial Ratio Analysis
+    ### Liquidity Ratios
+    {Liquidity ratios calculation table}
+    {Your analysis of Liquidity Ratios}
+
+    ### Profitability Ratios
+    {Profitability ratios calculation table}
+    {Your analysis of Profitability Ratios}
+
+    ### Efficiency Ratios
+    {Efficiency ratios calculation table}
+    {Your analysis of Efficiency Ratios}
+
+    ### Valuation Ratios
+    {Valuation ratios calculation table}
+    {Your analysis of Valuation Ratios}
+
+    ### Leverage Ratios
+    {Leverage ratios calculation table}
+    {Your analysis of Leverage Ratios}    
+
+    ### Performance and Growth Metrics
+    {Performance and Growth Metrics calculation table}
+    {Your analysis of Performance and Growth Metrics}  
+
+    ## Overall Analysis
+    {your overall analysis from all the information presented above}
+  liquidity_ratios_analysis_prompt: >
+    The table listed below are calculations for liquidity ratios for {company_name},
+    calculated at the financial-year-end date. The data is organized in a table, sorted
+    by the first column, which is the financial-year-end date. Each liquidity ratio
+    appears in a column of it's own, with appropriate column heading.
+    \n------------------------\n
+    {liquidity_ratios_table}
+    \n------------------------\n
+    Given the above information, review the trend for each liquidity ratio and provide
+    your overall assessment of the short term stability of {company_name}. Call out the
+    reasons for your assessments (could be multiple).
+    Return your response in markdown format. Title of the assessment should just be 
+    "#### Assessment of Liquidity Ratios", followed by your overall assessment, followed by 
+    your reasons as a bulleted list.
+  profitability_ratios_analysis_prompt: >
+    The table listed below are calculations for profitability ratios for {company_name},
+    calculated at the financial-year-end date. The data is organized in a table, sorted
+    by the first column, which is the financial-year-end date. Each profitability ratio
+    appears in a column of it's own, with appropriate column heading.
+    \n------------------------\n
+    {profitability_ratios_table}
+    \n------------------------\n
+    Given the above information, review the trend for each profitability ratio and provide
+    your overall assessment of the earnings & returns from {company_name}. Call out the
+    reasons for your assessments (could be multiple).
+    Return your response in markdown format. Title of the assessment should just be 
+    "#### Assessment of Profitability Ratios", followed by your overall assessment, followed by 
+    your reasons as a bulleted list.    
+  efficiency_ratios_analysis_prompt: >
+    The table listed below are calculations for efficiency ratios for {company_name},
+    calculated at the financial-year-end date. The data is organized in a table, sorted
+    by the first column, which is the financial-year-end date. Each efficiency ratio
+    appears in a column of it's own, with appropriate column heading.
+    \n------------------------\n
+    {efficiency_ratios_table}
+    \n------------------------\n
+    Given the above information, review the trend for each efficiency ratio and provide
+    your overall assessment of the operational efficiency of {company_name}. Call out the
+    reasons for your assessments (could be multiple).
+    Return your response in markdown format. Title of the assessment should just be 
+    "#### Assessment of Efficiency Ratios", followed by your overall assessment, followed by 
+    your reasons as a bulleted list. 
+  valuation_ratios_analysis_prompt: >
+    The table listed below are calculations for valuation ratios for {company_name},
+    calculated at the financial-year-end date. The data is organized in a table, sorted
+    by the first column, which is the financial-year-end date. Each valuation ratio
+    appears in a column of it's own, with appropriate column heading.
+    \n------------------------\n
+    {valuation_ratios_table}
+    \n------------------------\n
+    Given the above information, review the trend for each valuation ratio and provide
+    your overall assessment of the stock price fairness of {company_name}. Call out the
+    reasons for your assessments (could be multiple).
+    Return your response in markdown format. Title of the assessment should just be 
+    "#### Assessment of Valuation Ratios", followed by your overall assessment, followed by 
+    your reasons as a bulleted list. 
+  leverage_ratios_analysis_prompt: >
+    The table listed below are calculations for leverage ratios for {company_name},
+    calculated at the financial-year-end date. The data is organized in a table, sorted
+    by the first column, which is the financial-year-end date. Each leverage ratio
+    appears in a column of it's own, with appropriate column heading.
+    \n------------------------\n
+    {leverage_ratios_table}
+    \n------------------------\n
+    Given the above information, review the trend for each leverage ratio and provide
+    your overall assessment of the stock price fairness of {company_name}. Call out the
+    reasons for your assessments (could be multiple).
+    Return your response in markdown format. Title of the assessment should just be 
+    "#### Assessment of Leverage Ratios", followed by your overall assessment, followed by 
+    your reasons as a bulleted list. 
+  performance_and_growth_metrics_prompt: >
+    The table listed below are calculations for the performance & growth metrics for {company_name},
+    calculated at the financial-year-end date. The data is organized in a table, sorted
+    by the first column, which is the financial-year-end date. Each performance & growth metric
+    appears in a column of it's own, with appropriate column heading.
+    \n------------------------\n
+    {performance_and_growth_ratios_table}
+    \n------------------------\n
+    Given the above information, review the trend for each performace & growth metric and provide
+    your overall assessment of the business growth, profitability, earnings potential, financial 
+    stability, and cash flow generation potential of {company_name}. Call out the
+    reasons for your assessments (could be multiple).
+    Return your response in markdown format. Title of the assessment should just be 
+    "#### Assessment of Performance & Growth Metrics", followed by your overall assessment, followed by 
+    your reasons as a bulleted list. 
+  overall_assessment_prompt:
+    Below is provided calculatios of various performance metrics and your assessments of the same
+    for {company_name} from your previous responses.
+    \n------------------------\n
+    {performance_and_assessment}
+    \n------------------------\n    
+    Given the above information, give your overall recommendation for the investment potential of 
+    {company_name} that can be suggested to a potential HNI or pensioner. They want to know if {company_name} 
+    has a good long term investment potential or should be avoided. If they are already invested, if they should
+    continue holding or should they exit now. Give reasons for your recommendation (could be multiple).
+    Realize that they are dependent on you - an astute financial advisor - for the recommendation, so be very 
+    thorough with your analysis and very detailed with your recommendation & reasons for the same.
+    Return your response in markdown format. Title of the assessment should just be 
+    "#### Overall Recommendation for {company_name}", followed by your overall assessment, followed by 
+    your reasons as a bulleted list.    
