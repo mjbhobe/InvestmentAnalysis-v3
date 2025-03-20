@@ -1,2 +1,2 @@
-# InvestmentAnalysis-v2
-Investment Analysis V2 - multi agent system doing financial &amp; sentiment analysis
+# InvestmentAnalysis-v3
+Investment Analysis V3 - multi agent system doing financial &amp; sentiment analysis
