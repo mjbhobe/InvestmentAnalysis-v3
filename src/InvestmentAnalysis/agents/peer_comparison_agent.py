@@ -26,6 +26,7 @@ from agno.models.google import Gemini
 import google.generativeai as genai
 
 from tools.financial_analysis_tools import FinancialAnalysisTools
+from tools.peer_comparison_tools import PeerComparisonTools
 
 # Load environment variables and configure Gemini
 if os.environ.get("STREAMLIT_CLOUD"):
@@ -56,19 +57,24 @@ if config is None:
 
 
 peers_comparison_agent = Agent(
-    name="Peers Analysis Agent",
+    name="Peers Comparison Agent",
     model=Gemini(id="gemini-2.0-flash"),
-    tools=[FinancialAnalysisTools(enable_all=True)],
+    tools=[
+        # use just the company info tool from Financial Analysis toolkit
+        FinancialAnalysisTools(liquidity_ratios=False, company_info=True),
+        PeerComparisonTools(),
+    ],
     goal=dedent(
         """
         Analyse the financial ratios of a company and its peers and come up with a
         comprehensive comparative analysis of how the company is doing viz-a-viz its top peers.
-    """
+        """
     ),
     description=dedent(config["prompts"]["system_prompt"]),
-    instructions=dedent(config["prompts"]["financial_analysis_prompt"]),
+    instructions=dedent(config["prompts"]["peer_comparison_instructions"]),
     expected_output=dedent(config["prompts"]["expected_output_format"]),
     markdown=True,
-    # show_tool_calls=True,
+    show_tool_calls=True,
     debug_mode=True,
 )
+

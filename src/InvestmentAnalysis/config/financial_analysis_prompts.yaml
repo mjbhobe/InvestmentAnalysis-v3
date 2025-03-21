@@ -1,3 +1,4 @@
+# financial_analysis_prompts.yaml - externalized prompts, for the financial analysis agent
 prompts:
   system_prompt: >
     You are an ISDA certified financial analyst, who does a very thorough analysis

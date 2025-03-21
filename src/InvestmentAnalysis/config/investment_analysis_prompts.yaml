@@ -1,3 +1,4 @@
+# investment_analysis_prompts.yaml - externalized prompts, for the investment analysis agent
 prompts:
   system_prompt: >
     You are an ISDA certified investment analyst, who does a very thorough analysis of a company

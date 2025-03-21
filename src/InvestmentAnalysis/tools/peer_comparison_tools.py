@@ -19,7 +19,7 @@ pd.set_option("future.no_silent_downcasting", True)
 
 
 # created similar to Agno's YFinanceTools
-class PeersAnalysisTools(Toolkit):
+class PeerComparisonTools(Toolkit):
     def __init__(
         self,
     ):
@@ -27,7 +27,7 @@ class PeersAnalysisTools(Toolkit):
 
         # register functions
         logger.debug("Registering get_performance_ratios function")
-        self.register(self.get_performance_ratios)
+        self.register(self.get_peer_comparison_and_industry_benchmarks)
 
     def __calculate_performance_ratios(self, symbol: str) -> Dict[str, float]:
         """
@@ -42,7 +42,7 @@ class PeersAnalysisTools(Toolkit):
             str: JSON containing company profile and overview.
         """
         try:
-            logger.debug("Calculaying performance ratios for {symbol}")
+            logger.debug("Calculating performance ratios for {symbol}")
 
             ticker = yf.Ticker(symbol)
 
@@ -80,6 +80,8 @@ class PeersAnalysisTools(Toolkit):
 
             total_debt = balance_sheet["Total Debt"].iloc[-1]
             interest_expense = financials["Interest Expense"].iloc[-1]
+
+            # ------------ calculate the ratios -----------------------------------------
 
             ratios = {}
 
@@ -156,16 +158,47 @@ class PeersAnalysisTools(Toolkit):
         except Exception as e:
             return f"Error fetching company profile for {symbol}: {e}"
 
-    def get_performance_ratios(self, symbols: List[str]) -> str:
+    def get_peer_comparison_and_industry_benchmarks(self, symbols: List[str]) -> str:
         """
-        Use this function to get all performance ratios for a company for
-        the latest financial year, which can be used for comparison with peers.
+        Use this function to get a comparison table of all key performance ratios
+        of the company as well as its peers and industry benchmarks for the same.
+        These are calulated for the latest financial year.
 
         Args:
-            symbols (List[str]): List of stock symbols for which comparison is needed
+            symbols (List[str]): List of stock symbols for which comparison is needed.
 
         Returns:
-            str: JSON containing company profile and overview.
+            str: pandas Dataframe in markdown format. The dataframe has all the key 
+                metrics as the index and company symbols as the columns. The last column
+                of this table holds the industry benchmark (which is basically the row-wise)
+                mean of all the metrics.
+                Example output generated (assuming you are analyzing )
+                    |                                   |        TCS.NS |      INFY.NS |      WIPRO.NS |   HCLTECH.NS |      TECHM.NS |   PERSISTENT.NS |   Industry Benchmark |
+                    |:----------------------------------|--------------:|-------------:|--------------:|-------------:|--------------:|----------------:|---------------------:|
+                    | Current Ratio                     |    2.45063    |    2.30531   |   2.57731     |    2.61071   |    1.8567     |     1.88776     |          2.2814      |
+                    | Quick Ratio                       |    2.45003    |  nan         |   2.57372     |    2.60257   |    1.85373    |   nan           |          2.37001     |
+                    | Cash Ratio                        |    0.195363   |    0.381208  |   0.384036    |    0.415427  |    0.344554   |     0.303326    |          0.337319    |
+                    | Return on Equity (RoE)            |    0.507332   |    0.299934  |   0.147292    |    0.230022  |    0.0884084  |     0.220564    |          0.248925    |
+                    | Return on Assets (RoA)            |    0.313474   |    0.191672  |   0.0958403   |    0.157371  |    0.0542977  |     0.148298    |          0.160159    |
+                    | Return on Capital Employed (RoCE) |    0.625592   |    0.370788  |   0.177513    |    0.279296  |    0.106323   |     0.287956    |          0.307911    |
+                    | Net Profit Margin                 |    0.190574   |    0.170617  |   0.123052    |    0.142858  |    0.0453462  |     0.111335    |          0.130631    |
+                    | Operating Margin                  |    0.246686   |    0.207359  |   0.148986    |    0.182208  |    0.0658172  |     0.132685    |          0.163957    |
+                    | Asset Turnover                    |    1.64489    |    1.1234    |   0.778859    |    1.10159   |    1.1974     |     1.33199     |          1.19636     |
+                    | Inventory Turnover                | 6327.19       |  nan         | 562.205       |  390.88      | 1235.8        |   nan           |       2129.02        |
+                    | Price-to-Earnings (P/E)           |   26.5654     |   23.3033    |  22.3604      |   24.888     |   33.4104     |    61.9341      |         32.077       |
+                    | Price-to-Sales (P/S)              |    5.37412    |  355.461     |   3.08001     |    3.86322   |    2.39799    |     8.28009     |         63.076       |
+                    | Price-to-Book (P/B)               |   14.3066     |  624.876     |   3.68675     |    6.22032   |    4.67519    |    16.4035      |        111.695       |
+                    | EV/EBIDTA                         |   21.7687     | 1714.03      |  21.1794      |   21.0183    |   35.905      |    62.2418      |        312.69        |
+                    | Debt-to-Equity (D/E)              |    0.0886406  |    0.0948953 |   0.219566    |    0.0843209 |    0.0951165  |     0.0909955   |          0.112256    |
+                    | Interest Coverage                 |   80.6877     |   78.6071    |  12.728       |   38.915     |   64.0998     |    31.9801      |         51.1696      |
+                    | Revenue Growth (%)                |    6.84606    |    1.92181   |  -0.803757    |    8.33563   |   -2.42953    |    17.6155      |          5.24761     |
+                    | EBIT Growth (%)                   |    8.8219     |    5.81731   |   1.28571     |    8.46228   |  -49.5386     |    16.0024      |         -1.52484     |
+                    | Net Profit Margin (%)             |   19.0574     |   17.0617    |  12.3052      |   14.2858    |    4.53462    |    11.1335      |         13.0631      |
+                    | EPS Growth (%)                    |   10.1568     |    6.14809   |   2.14068     |    5.70583   |  -51.3418     |    16.6603      |         -1.75502     |
+                    | EPS                               |  126.885      |    0.764985  |  10.5813      |   57.984     |   26.7166     |    71.7851      |         49.1194      |
+                    | Debt-to-Equity                    |    0.0886406  |    0.0948953 |   0.219566    |    0.0843209 |    0.0951165  |     0.0909955   |          0.112256    |
+                    | Free Cash Flow                    |    4.1664e+11 |    2.882e+09 |   1.65706e+11 |    2.14e+11  |    5.5853e+10 |     9.37391e+09 |          1.44076e+11 |
+                    | FCF Growth (%)                    |    7.20185    |   13.7332    |  43.1375      |   30.9029    |   22.5707     |    79.4177      |         32.8273      |
         """
         try:
             logger.debug("Fetching performance ratios for {symbols}")
@@ -174,8 +207,12 @@ class PeersAnalysisTools(Toolkit):
             for symbol in symbols:
                 ratios[symbol] = self.__calculate_performance_ratios(symbol)
 
+            df = pd.DataFrame(ratios)
+            # calculate industry benchmarks - average across rows
+            df["Industry Benchmark"] = df.mean(axis=1)
+
             # return json.dumps(ratios)
-            return f"\n{pd.DataFrame(ratios).to_markdown()}\n"
+            return f"\n{df.to_markdown()}\n"
         except Exception as e:
             return f"Error fetching company profile for {symbols}: {e}"
 
@@ -187,10 +224,10 @@ if __name__ == "__main__":
     console = Console()
 
     # create an instance of the class
-    peers_analysis_tools = PeersAnalysisTools()
+    peers_analysis_tools = PeerComparisonTools()
 
     # test the function
     # assume TCS.NS is the company we are analyzing & the rest are peers
     peers = ["TCS.NS", "INFY.NS", "WIPRO.NS", "HCLTECH.NS", "TECHM.NS", "PERSISTENT.NS"]
 
-    console.print(peers_analysis_tools.get_performance_ratios(peers))
+    console.print(peers_analysis_tools.get_peer_comparison_and_industry_benchmarks(peers))
