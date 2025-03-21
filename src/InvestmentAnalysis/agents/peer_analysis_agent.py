@@ -1,7 +1,6 @@
 """
-peers_analysis_agent.py - an agent that does a deep analysis of financial
-    performance of a company based on various ratios that are calculated
-    from the financial data downloaded from Yahoo! Finance
+peers_comparison_agent.py - an agent that does a comparative analysis
+    of all performance ratios between a company & its peers
 
 Author: Manish Bhobé
 
@@ -9,8 +8,10 @@ My experiments with AI, ML and Generative AI
 Code is meant to be used for educational purposes only!
 
 **WARNING**
-At no point is this code/to be used as a replacement for sound
-financial investment advise from a Financial expert.
+- This code is intended for educational purposes only!
+- It is not meant to replace professional financial advisors.
+- The author does not endorse using this as a replacement for sound financial
+  advise from an experienced financial advisor.
 """
 
 import os
@@ -36,7 +37,7 @@ else:
     genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 config_file_path = (
-    pathlib.Path(__file__).parent.parent / "config/financial_analysis_prompts.yaml"
+    pathlib.Path(__file__).parent.parent / "config/peer_comparison_prompts.yaml"
 )
 assert (
     config_file_path.exists()
@@ -54,14 +55,14 @@ if config is None:
     )
 
 
-financial_analysis_agent = Agent(
-    name="Financial Analysis Agent",
+peers_comparison_agent = Agent(
+    name="Peers Analysis Agent",
     model=Gemini(id="gemini-2.0-flash"),
     tools=[FinancialAnalysisTools(enable_all=True)],
     goal=dedent(
         """
-        Analyse the financial ratios of a company and come up with a recommendation
-        of the long term investment potential of the company, with reasons for the same.
+        Analyse the financial ratios of a company and its peers and come up with a
+        comprehensive comparative analysis of how the company is doing viz-a-viz its top peers.
     """
     ),
     description=dedent(config["prompts"]["system_prompt"]),
