@@ -217,17 +217,3 @@ class PeerComparisonTools(Toolkit):
             return f"Error fetching company profile for {symbols}: {e}"
 
 
-# --- test harness ---
-if __name__ == "__main__":
-    from rich.console import Console
-
-    console = Console()
-
-    # create an instance of the class
-    peers_analysis_tools = PeerComparisonTools()
-
-    # test the function
-    # assume TCS.NS is the company we are analyzing & the rest are peers
-    peers = ["TCS.NS", "INFY.NS", "WIPRO.NS", "HCLTECH.NS", "TECHM.NS", "PERSISTENT.NS"]
-
-    console.print(peers_analysis_tools.get_peer_comparison_and_industry_benchmarks(peers))

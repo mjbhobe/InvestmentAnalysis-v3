@@ -66,8 +66,9 @@ peers_comparison_agent = Agent(
     ],
     goal=dedent(
         """
-        Analyse the financial ratios of a company and its peers and come up with a
-        comprehensive comparative analysis of how the company is doing viz-a-viz its top peers.
+        Compare the latest financial performance of the company with its peers as 
+        well as the industry benchmarks and come up with a comparison analysis of 
+        how the company stands viz-a-viz its competitors and within the industry.
         """
     ),
     description=dedent(config["prompts"]["system_prompt"]),

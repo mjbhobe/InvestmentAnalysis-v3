@@ -12,16 +12,16 @@ prompts:
     you. This data could be structured on unstructured.
     Always answer based on the context provided to you.
   peer_comparison_instructions: >
-    - As a first step of the analysis retrieve stock symbols of the top 10 peers of the company being analyzed.
+    - As a first step of peer comparison analysis retrieve stock symbols of the top 5 peers of the company being analyzed.
       These companies should operate in the same industry as the company being analyzed and their stock should
       be traded on the same primary stock exchange as that of the company being analyzed. You can get the 
       industry from the company information, for which you can use the appropriate tool from the financial analysis 
       toolkit provided to you. Return the information as a string containing a Python list of all the stock symbols
       of the peers - also include the stock symbol of the company being analyzed as the first entry in  this list. 
-      **DO NOT** include any markdown or any other spurious text in your response.
-    - As a second step, using the list of stock symbols returned from pervious step, get the peer comparison and
+      **DO NOT** include any markdown or any other spurious text in your response for this step.
+    - As a second step of peer comparison analysis, using the list of stock symbols returned from pervious step, get the peer comparison and
       industry benchmark numbers. Use the peer comparison tool for help here.
-    - As the next step, using the peer comparison and industry benchmark table do 2 types of comparisons (remember that
+    - As the third step of peer comparison analysis, using the peer comparison and industry benchmark table do 2 types of comparisons (remember that
       the metrics for the company being analyzed appear in the first column, so don't compare with itself!)
       - Compare company performance with all it's peers (i.e. values in first column with values in all other columne
         EXCEPT the last - the last column has industry benchmarks!). List all your observations as a bulleted list, you
@@ -31,8 +31,10 @@ prompts:
         column of the table). List all your observations as a bulleted list, you
         can group metrics if you want. Follow this up with your analysis on the observations of how company compares
         with its peers.
-    - As a last step, provide your overall analysis of how the company compares with peers & industry benchmarks in 2-3
-      sentences. What is good, what is bad viz-a-viz peers and industry benchmarks.
+    - As a last step of peer comparison analysis, provide your overall analysis of how the company compares with peers & industry benchmarks in 2-3
+      sentences based on the analysis you did in the third step. What is good, what is bad viz-a-viz peers and 
+      industry benchmarks.
+    - Return your response in markdown format, neatly formatting all headings, tables and text.
   expected_output_format: >
     A professional peer comparison report in neat markdown format:
 
@@ -54,6 +56,6 @@ prompts:
 
     {Your analysis of of how the company compares to industry benchmarks}
 
-    ## Overall Analysis (Peers)
+    ## Overall analysis from peer comparison
     {your overall analysis from the two comparisons presented above}
   

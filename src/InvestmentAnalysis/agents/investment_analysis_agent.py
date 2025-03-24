@@ -60,10 +60,10 @@ if config is None:
 investment_analysis_agent = Agent(
     name="Investment Analysis Agent",
     model=Gemini(id="gemini-2.0-flash"),
-    team=[financial_analysis_agent, sentiment_analysis_agent, peers_comparison_agent],
+    team=[financial_analysis_agent, peers_comparison_agent],
     goal=dedent(
         """
-        Based on the financial analysis, sentiment analysis and peers analysis
+        Based on the financial analysis and peers comparison
         come up with an overall recommendation for the long term investment potential
         of a company to potential investors.
     """
