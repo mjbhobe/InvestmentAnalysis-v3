@@ -25,6 +25,7 @@ from agno.models.google import Gemini
 import google.generativeai as genai
 
 from agents.financial_analysis_agent import financial_analysis_agent
+from agents.peer_comparison_agent import peers_comparison_agent
 from agents.sentiment_analysis_agent import sentiment_analysis_agent
 
 
@@ -59,10 +60,10 @@ if config is None:
 investment_analysis_agent = Agent(
     name="Investment Analysis Agent",
     model=Gemini(id="gemini-2.0-flash"),
-    team=[financial_analysis_agent, sentiment_analysis_agent],
+    team=[financial_analysis_agent, sentiment_analysis_agent, peers_comparison_agent],
     goal=dedent(
         """
-        Based on the financial analysis, sentiment analysis 
+        Based on the financial analysis, sentiment analysis and peers analysis
         come up with an overall recommendation for the long term investment potential
         of a company to potential investors.
     """

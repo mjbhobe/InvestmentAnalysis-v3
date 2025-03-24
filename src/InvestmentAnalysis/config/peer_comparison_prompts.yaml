@@ -33,8 +33,6 @@ prompts:
         with its peers.
     - As a last step, provide your overall analysis of how the company compares with peers & industry benchmarks in 2-3
       sentences. What is good, what is bad viz-a-viz peers and industry benchmarks.
-    - Don't do anything else now. We'll gradually build on the analysis. Just execute above listed instructions
-      step-by-step.
   expected_output_format: >
     A professional peer comparison report in neat markdown format:
 

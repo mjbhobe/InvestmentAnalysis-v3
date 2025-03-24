@@ -14,12 +14,21 @@ def generate_investment_analysis(symbol: str):
 
 console = Console()
 
-# try for various companies
+# try for various companies (some sample tickers below)
+# refer to the Yahoo! Finance website for ticker symbols
+# -- on NY Stock Exchange (NYSE)
 # AAPL - Apple
-# AMZN - Amazon
-# MSFT - Microsoft Corp
+# JPM - JP Morgan Chase
+# LLY - Eli Lilly
+# XOM - Exxon Mobil
+# -- on NSE
 # RELIANCE.NS - Reliance Industries
 # TCS.NS - TCS
+# HDFCBANK.NS - HDFC Bank
+# -- on London Stock Exchange (LSE)
+# OA4J.L - AstraZeneca Plc
+# ULVR.L - Unilever Plc
+# VOD.L - Vodafone Group Plc
 while True:
     stock_symbol = console.input(
         "[green]Enter stock symbol (as on Yahoo! Finance):[/green] "
