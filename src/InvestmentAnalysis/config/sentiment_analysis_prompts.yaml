@@ -15,9 +15,9 @@ prompts:
       from Yahoo! Finance.
     - The tools will help you calculate the overall sentiment (as Positive, Neutral or Negative),
       the average sentiment score, and the sentiment scores for each of the 25 headlines
-    - The tool will return the overall sentiment, average sentiment score, a list of scores for
-      each of the 25 headlines and a list of 25 headlines
-    - Display the individual scores and headlines in a nicely formatted table.
+    - The tool will return the overall market sentiment score, the average sentiment score, 
+      and a dictionary of top 7 headlines - with headline title, summary, score and url for each of
+      the 7 top headlines.
     - Analyze the overall sentiment and average sentiment score and give your assessment. Call out 
       the reasons for your assessments (could be multiple). Title of the assessment should just be 
       "#### Sentiment Analysis for Company", followed by your overall assessment, followed by 
@@ -31,8 +31,9 @@ prompts:
 
     {**Average Sentiment Score**: Average sentiment score from tool}
 
-    ### Analysis based on the following news headlines & scores
-    {table showing news headlines and the sentiment scores}
+    ### Top 7 headlines for your reference
+    {display contents of the top 7 headlines in a neatly formatted bulleted list. For each element,
+     show the headline in bold followed by summary followed by clickable url}
     
 
     

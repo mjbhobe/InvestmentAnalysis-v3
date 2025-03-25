@@ -63,7 +63,7 @@ investment_analysis_agent = Agent(
     team=[financial_analysis_agent, peers_comparison_agent, sentiment_analysis_agent],
     goal=dedent(
         """
-        Based on the financial analysis and peers comparison
+        Based on the output from financial analysis, peers comparison and sentiment analysis
         come up with an overall recommendation for the long term investment potential
         of a company to potential investors.
     """
@@ -75,3 +75,4 @@ investment_analysis_agent = Agent(
     show_tool_calls=True,
     debug_mode=True,
 )
+

@@ -45,12 +45,18 @@ class SentimentAnalysisTools(Toolkit):
             # =0 value is neutral and <0 value is negative sentiment
             tone = "Positive" if avg > 0.1 else "Negative" if avg < -0.1 else "Neutral"
             # save headlines & url of top 5 news headlines
-
+            top7_news_headlines = [{
+                "headline":n["content"]["title"], 
+                "summary":n["content"]["summary"], 
+                "score" : scores[i],
+                "url":("Not Available" if n["content"]["clickThroughUrl"] is None else n["content"]['clickThroughUrl']['url']),
+                } for n in news[:7] for i in range(7)]
+            
             sentiment_analysis = {
                 "market_sentiment": tone,
                 "avg_score": round(avg, 3),
-                "scores": scores,
-                "headlines": headlines,
+                #"scores": scores[:7],
+                "headlines": top7_news_headlines,
             }
             # must return text!
             json_str: str = json.dumps(sentiment_analysis, indent=2)
@@ -70,3 +76,4 @@ if __name__ == "__main__":
     for symbol in symbols:
         print(f"Fetching sentiments for {symbol}", flush=True)
         print(sat.analyze_market_sentiment(symbol))
+
