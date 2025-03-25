@@ -60,7 +60,7 @@ if config is None:
 investment_analysis_agent = Agent(
     name="Investment Analysis Agent",
     model=Gemini(id="gemini-2.0-flash"),
-    team=[financial_analysis_agent, peers_comparison_agent],
+    team=[financial_analysis_agent, peers_comparison_agent, sentiment_analysis_agent],
     goal=dedent(
         """
         Based on the financial analysis and peers comparison

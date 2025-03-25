@@ -44,6 +44,8 @@ class SentimentAnalysisTools(Toolkit):
             # this is my scoring criteria - usually a >0 value is positive sentiment
             # =0 value is neutral and <0 value is negative sentiment
             tone = "Positive" if avg > 0.1 else "Negative" if avg < -0.1 else "Neutral"
+            # save headlines & url of top 5 news headlines
+
             sentiment_analysis = {
                 "market_sentiment": tone,
                 "avg_score": round(avg, 3),

@@ -42,7 +42,7 @@ class PeerComparisonTools(Toolkit):
             str: JSON containing company profile and overview.
         """
         try:
-            logger.debug("Calculating performance ratios for {symbol}")
+            logger.debug(f"Calculating performance ratios for {symbol}")
 
             ticker = yf.Ticker(symbol)
 
@@ -153,7 +153,7 @@ class PeerComparisonTools(Toolkit):
             ratios["FCF Growth (%)"] = (
                 cash_flow["Free Cash Flow"].pct_change().iloc[-1] * 100.0
             )
-
+            logger.debug(f"   Ratios for {symbol}:\n {json.dumps(ratios, indent=2)}\n")
             return ratios
         except Exception as e:
             return f"Error fetching company profile for {symbol}: {e}"
@@ -168,7 +168,7 @@ class PeerComparisonTools(Toolkit):
             symbols (List[str]): List of stock symbols for which comparison is needed.
 
         Returns:
-            str: pandas Dataframe in markdown format. The dataframe has all the key 
+            str: pandas Dataframe in markdown format. The dataframe has all the key
                 metrics as the index and company symbols as the columns. The last column
                 of this table holds the industry benchmark (which is basically the row-wise)
                 mean of all the metrics.
@@ -210,10 +210,8 @@ class PeerComparisonTools(Toolkit):
             df = pd.DataFrame(ratios)
             # calculate industry benchmarks - average across rows
             df["Industry Benchmark"] = df.mean(axis=1)
-
+            logger.debug(f"Returning peer comparison table\n{df.to_markdown()}")
             # return json.dumps(ratios)
             return f"\n{df.to_markdown()}\n"
         except Exception as e:
             return f"Error fetching company profile for {symbols}: {e}"
-
-
