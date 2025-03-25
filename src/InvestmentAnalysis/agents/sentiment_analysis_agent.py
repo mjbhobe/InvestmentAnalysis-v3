@@ -26,6 +26,7 @@ from agno.models.google import Gemini
 import google.generativeai as genai
 
 from tools.sentiment_analysis_tools import SentimentAnalysisTools
+from utils.llm import google_gemini_llm
 
 # Load environment variables and configure Gemini
 if os.environ.get("STREAMLIT_CLOUD"):
@@ -61,7 +62,8 @@ if config is None:
 
 sentiment_analysis_agent = Agent(
     name="Sentiment Analysis Agent",
-    model=Gemini(id="gemini-2.0-flash"),
+    #model=Gemini(id="gemini-2.0-flash"),
+    model=google_gemini_llm,
     tools=[SentimentAnalysisTools()],
     goal=dedent(
         """

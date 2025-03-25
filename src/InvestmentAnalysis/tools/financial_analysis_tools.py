@@ -1,3 +1,14 @@
+"""
+financial_analysis_tools.py - tools for PhiData/Agno agents to get
+    financial data for the past 5 years and calculate various performance
+    ratios - such as liquidity ratios, profitability ratios etc. - on that
+    data. This is slightly different from YahooFinanceTools.
+
+Author: Manish Bhobe
+My experiments with Python, ML and Generative AI.
+Code is meant for illustration purposes ONLY. Use at your own risk!
+Author is not liable for any damages arising from direct/indirect use of this code.
+"""
 import json
 import yfinance
 

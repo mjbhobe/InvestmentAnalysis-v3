@@ -28,6 +28,8 @@ from agents.financial_analysis_agent import financial_analysis_agent
 from agents.peer_comparison_agent import peers_comparison_agent
 from agents.sentiment_analysis_agent import sentiment_analysis_agent
 
+from utils.llm import google_gemini_llm
+
 
 # Load environment variables and configure Gemini
 if os.environ.get("STREAMLIT_CLOUD"):
@@ -59,7 +61,8 @@ if config is None:
 
 investment_analysis_agent = Agent(
     name="Investment Analysis Agent",
-    model=Gemini(id="gemini-2.0-flash"),
+    #model=Gemini(id="gemini-2.0-flash"),
+    model=google_gemini_llm,
     team=[financial_analysis_agent, peers_comparison_agent, sentiment_analysis_agent],
     goal=dedent(
         """

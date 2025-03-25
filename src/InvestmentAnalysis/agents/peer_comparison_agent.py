@@ -28,6 +28,8 @@ import google.generativeai as genai
 from tools.financial_analysis_tools import FinancialAnalysisTools
 from tools.peer_comparison_tools import PeerComparisonTools
 
+from utils.llm import google_gemini_llm
+
 # Load environment variables and configure Gemini
 if os.environ.get("STREAMLIT_CLOUD"):
     # when deploying to streamlit, read from st.secrets
@@ -58,7 +60,8 @@ if config is None:
 
 peers_comparison_agent = Agent(
     name="Peers Comparison Agent",
-    model=Gemini(id="gemini-2.0-flash"),
+    #model=Gemini(id="gemini-2.0-flash"),
+    model=google_gemini_llm,
     tools=[
         # use just the company info tool from Financial Analysis toolkit
         FinancialAnalysisTools(liquidity_ratios=False, company_info=True),

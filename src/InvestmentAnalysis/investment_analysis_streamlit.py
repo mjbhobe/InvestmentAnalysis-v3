@@ -51,12 +51,12 @@ def generate_investment_analysis(symbol: str, agent):
     prompt = f"Generate investment analysis for {symbol}"
     # return agent.print_response(prompt, stream=True)
     response: RunResponse = agent.run(prompt, markdown=True)
-    return response.content
+    return response.content, response.metrics
 
 
 # Main UI
 st.markdown(
-    "<h1 class='main-header'>Investment Analyzer - Ver 2.0📈</h1>",
+    "<h1 class='main-header'>Investment Analyzer - Ver 3.0📈</h1>",
     unsafe_allow_html=True,
 )
 
@@ -67,8 +67,8 @@ st.markdown(
     <br/>
     <div style='color: #777;'>     
     <small>   
-    In this version we combine Financial analysis and sentiment analysis to come up with an overall
-    recommendation on the long term investment potential of the company. </small>
+    In this version we combine financial analysis, peer comparison and sentiment analysis to come up 
+    with an overall recommendation on the long term investment potential of the company. </small>
     </div>
     <p/>
 """,
@@ -113,8 +113,11 @@ if analyze_button and stock_symbol:
 
     try:
         stock_symbol = stock_symbol.upper()
-        with st.spinner(f"Generating investment analysis for {stock_symbol}..."):
-            analysis = generate_investment_analysis(
+        company_name = yf.Ticker(stock_symbol).info.get("longName")
+        with st.spinner(
+            f"Generating investment analysis for {company_name} ({stock_symbol})..."
+        ):
+            analysis, metrics = generate_investment_analysis(
                 stock_symbol, investment_analysis_agent
             )
 
