@@ -1,3 +1,4 @@
+import numpy as np
 import streamlit as st
 import yfinance as yf
 from typing import Iterator
@@ -8,7 +9,7 @@ from agents.investment_analysis_agent import investment_analysis_agent
 
 # Page configuration
 st.set_page_config(
-    page_title="Investment Analyzer - Ver 2.0", page_icon="📊", layout="wide"
+    page_title="Investment Analyzer - Ver 3.0", page_icon="📊", layout="wide"
 )
 
 # Custom CSS
@@ -64,29 +65,20 @@ st.markdown(
 
 st.markdown(
     """
-    This tool provides investment analysis for publicly traded companies and comes up with an overall
-    recommendation on the long term investment potential.
+    <center>
+    This multi-agent team based application does an investment analysis for publicly traded companies and comes up with an 
+    overall recommendation on the long term investment potential.
     <br/>
     <div style='color: #777;'>     
     <small>   
-    In this version we combine financial analysis, peer comparison and sentiment analysis to come up 
+    This version combines financial analysis, peer comparison and sentiment analysis to come up 
     with an overall recommendation on the long term investment potential of the company. </small>
     </div>
+    </center>
     <p/>
 """,
     unsafe_allow_html=True,
 )
-
-# st.markdown(
-#     """
-#     <div style='color: #777;'>
-#     <small>
-#     In this version we combine Financial analysis and sentiment analysis to come up with an overall
-#     recommendation on the long term investment potential of the company. </small>
-#     </div>
-# """,
-#     unsafe_allow_html=True,
-# )
 
 # Stock symbol input
 with st.container():
@@ -127,6 +119,19 @@ if analyze_button and stock_symbol:
 
         # Display analysis in an expandable container
         with st.expander("View Detailed Analysis", expanded=True):
+            # metrics is a dict like this
+            # metrics = {
+            #   "input_tokens":[input tokens per agent],
+            #   "output_tokens":[input tokens per agent],
+            #   "total_tokens":[input tokens + output tokens per agent],
+            #   "time":[total time per agent],
+            #   }
+            input_tokens = np.array(metrics["input_tokens"]).sum()
+            output_tokens = np.array(metrics["output_tokens"]).sum()
+            total_tokens = np.array(metrics["total_tokens"]).sum()
+            total_time = np.array(metrics["time"]).sum()
+            # st.markdown(f"**Metrics**: {metrics}")
+            st.markdown(f"**Token Count** -> Input: {input_tokens:5d} - Output: {output_tokens:5d} - Total: {total_tokens:5d} | **Time Taken**: {total_time:2f}s")
             st.markdown(analysis)
 
         st.session_state.analysis_generated = True
@@ -139,7 +144,7 @@ st.markdown("---")
 st.markdown(
     """
     <div style='text-align: center; color: #777;'>
-        <small>Developed by Manish Bhobé • Toolkit: yfinance | Agno (Agents) | Google Gemini | Streamlit</small>
+        <small>Developed by Manish Bhobé • Powered by: yfinance | Agno (for agents) | Google Gemini (LLM) | Streamlit (UI)</small>
         <small>For educational purposes only!</small>
     </div>
     """,

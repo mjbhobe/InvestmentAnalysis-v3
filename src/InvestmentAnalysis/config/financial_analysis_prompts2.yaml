@@ -23,29 +23,29 @@ prompts:
   expected_output_format: >
     A professional financial analysis report in markdown format:
 
-    # Financial Analysis for {company long name}
+    ## Financial Analysis for {company long name}
     {Company's Business Summary}
 
-    ## Financial Ratio Analysis
-    #### Liquidity Ratios
+    ### Financial Ratio Analysis
+    ##### Liquidity Ratios
     {Liquidity ratios calculation table}
 
-    #### Profitability Ratios
+    ##### Profitability Ratios
     {Profitability ratios calculation table}
 
-    #### Efficiency Ratios
+    ##### Efficiency Ratios
     {Efficiency ratios calculation table}
 
-    #### Valuation Ratios
+    ##### Valuation Ratios
     {Valuation ratios calculation table}
 
-    #### Leverage Ratios
+    ##### Leverage Ratios
     {Leverage ratios calculation table}   
 
-    ### Performance and Growth Metrics
+    ##### Performance and Growth Metrics
     {Performance and Growth Metrics calculation table}  
 
-    ## Analysis of Performance Ratios
+    #### Analysis of Performance Ratios
     {Your observations on the above tables, as a bulleted list, one bullet per table}
   liquidity_ratios_analysis_prompt: >
     The table listed below are calculations for liquidity ratios for {company_name},
