@@ -31,7 +31,7 @@ prompts:
         column of the table). List all your observations as a bulleted list, you
         can group metrics if you want. Follow this up with your analysis on the observations of how company compares
         with its peers.
-    - As a last step of peer comparison analysis, provide your overall analysis of how the company compares with peers & industry benchmarks in 2-3
+    - Next, provide your overall analysis of how the company compares with peers & industry benchmarks in 2-3
       sentences based on the analysis you did in the third step. What is good, what is bad viz-a-viz peers and 
       industry benchmarks.
     - Return your response in markdown format, neatly formatting all headings, tables and text.

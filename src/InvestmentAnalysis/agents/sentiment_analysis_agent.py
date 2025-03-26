@@ -62,8 +62,8 @@ if config is None:
 
 sentiment_analysis_agent = Agent(
     name="Sentiment Analysis Agent",
-    #model=Gemini(id="gemini-2.0-flash"),
-    model=google_gemini_llm,
+    model=Gemini(id="gemini-2.0-flash", temperature=0.3),
+    # model=google_gemini_llm,
     tools=[SentimentAnalysisTools()],
     goal=dedent(
         """

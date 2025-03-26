@@ -27,39 +27,39 @@ from tools.financial_analysis_tools import FinancialAnalysisTools
 from utils.llm import google_gemini_llm
 from utils.prompts import load_prompts_from_config
 
-# # Load environment variables and configure Gemini
-# if os.environ.get("STREAMLIT_CLOUD"):
-#     # when deploying to streamlit, read from st.secrets
-#     os.environ["GOOGLE_API_KEY"] = st.secrets("GOOGLE_API_KEY")
-# else:
-#     # running locally - load from .env file
-#     load_dotenv()
-#     genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+# Load environment variables and configure Gemini
+if os.environ.get("STREAMLIT_CLOUD"):
+    # when deploying to streamlit, read from st.secrets
+    os.environ["GOOGLE_API_KEY"] = st.secrets("GOOGLE_API_KEY")
+else:
+    # running locally - load from .env file
+    load_dotenv()
+    genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+
+config_file_path = pathlib.Path(__file__).parent.parent / "config/financial_analysis_prompts2.yaml"
+assert (
+    config_file_path.exists()
+), f"FATAL ERROR: configuration file {config_file_path} does not exist!"
+
+# load prompts from config/prompts.yaml
+# externalizing the prompts from code.
+config = None
+with open(str(config_file_path), "r") as f:
+    config = yaml.safe_load(f)
+
+if config is None:
+    raise RuntimeError(
+        f"FATAL ERROR: unable to read from configuration file at {config_file_path}"
+    )
 
 # config_file_path = pathlib.Path(__file__).parent.parent / "config/financial_analysis_prompts.yaml"
-# assert (
-#     config_file_path.exists()
-# ), f"FATAL ERROR: configuration file {config_file_path} does not exist!"
-
-# # load prompts from config/prompts.yaml
-# # externalizing the prompts from code.
-# config = None
-# with open(str(config_file_path), "r") as f:
-#     config = yaml.safe_load(f)
-
-# if config is None:
-#     raise RuntimeError(
-#         f"FATAL ERROR: unable to read from configuration file at {config_file_path}"
-#     )
-
-config_file_path = pathlib.Path(__file__).parent.parent / "config/financial_analysis_prompts.yaml"
-config = load_prompts_from_config(config_file_path)
+# config = load_prompts_from_config(config_file_path)
 
 
 financial_analysis_agent = Agent(
     name="Financial Analysis Agent",
-    #model=Gemini(id="gemini-2.0-flash"),
-    model=google_gemini_llm,
+    model=Gemini(id="gemini-2.0-flash", temperature=0.3),
+    # model=google_gemini_llm,
     tools=[FinancialAnalysisTools(enable_all=True)],
     goal=dedent(
         """

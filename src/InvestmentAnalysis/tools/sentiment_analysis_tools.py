@@ -49,7 +49,7 @@ class SentimentAnalysisTools(Toolkit):
                 "headline":n["content"]["title"], 
                 "summary":n["content"]["summary"], 
                 "score" : scores[i],
-                "url":("Not Available" if n["content"]["clickThroughUrl"] is None else n["content"]['clickThroughUrl']['url']),
+                "url":("URL Link Not Available" if n["content"]["clickThroughUrl"] is None else n["content"]['clickThroughUrl']['url']),
                 } for n in news[:7] for i in range(7)]
             
             sentiment_analysis = {

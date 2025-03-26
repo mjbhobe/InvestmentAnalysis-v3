@@ -1,5 +1,6 @@
 import streamlit as st
 import yfinance as yf
+from typing import Iterator
 
 from agno.agent import RunResponse
 from agno.utils.log import logger
@@ -52,6 +53,7 @@ def generate_investment_analysis(symbol: str, agent):
     # return agent.print_response(prompt, stream=True)
     response: RunResponse = agent.run(prompt, markdown=True)
     return response.content, response.metrics
+    #response_stream : Iterator[RunResponse] = agent.run(prompt, markdown=True, stream=True)
 
 
 # Main UI
@@ -137,9 +139,9 @@ st.markdown("---")
 st.markdown(
     """
     <div style='text-align: center; color: #777;'>
-        <small>Developed by Manish Bhobé • using yfinance • Agno (Agents) • Google Gemini • Streamlit</small>
+        <small>Developed by Manish Bhobé • Toolkit: yfinance | Agno (Agents) | Google Gemini | Streamlit</small>
         <small>For educational purposes only!</small>
     </div>
-""",
+    """,
     unsafe_allow_html=True,
 )

@@ -6,11 +6,7 @@ from agents.investment_analysis_agent import investment_analysis_agent
 
 
 def generate_investment_analysis(symbol: str):
-    prompt = dedent(
-        f"""
-        Generate investment analysis for {symbol}
-    """
-    )
+    prompt = f"Generate investment analysis for {symbol}"
     return investment_analysis_agent.print_response(prompt, stream=True)
 
 

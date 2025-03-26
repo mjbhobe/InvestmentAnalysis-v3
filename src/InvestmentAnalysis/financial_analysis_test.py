@@ -4,11 +4,7 @@ from agents.financial_analysis_agent import financial_analysis_agent
 
 
 def generate_financial_analysis(symbol: str):
-    prompt = dedent(
-        f"""
-        Generate financial analysis for {symbol}
-    """
-    )
+    prompt = f"Generate financial analysis for {symbol}"
     return financial_analysis_agent.print_response(prompt, stream=True)
 
 

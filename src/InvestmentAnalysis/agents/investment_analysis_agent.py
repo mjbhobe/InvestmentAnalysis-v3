@@ -61,15 +61,15 @@ if config is None:
 
 investment_analysis_agent = Agent(
     name="Investment Analysis Agent",
-    #model=Gemini(id="gemini-2.0-flash"),
-    model=google_gemini_llm,
+    model=Gemini(id="gemini-2.0-flash", temperature=0.3),
+    # model=google_gemini_llm,
     team=[financial_analysis_agent, peers_comparison_agent, sentiment_analysis_agent],
     goal=dedent(
         """
         Based on the output from financial analysis, peers comparison and sentiment analysis
         come up with an overall recommendation for the long term investment potential
         of a company to potential investors.
-    """
+        """
     ),
     description=dedent(config["prompts"]["system_prompt"]),
     instructions=dedent(config["prompts"]["investment_analysis_instructions"]),

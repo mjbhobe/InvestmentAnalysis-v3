@@ -60,8 +60,8 @@ if config is None:
 
 peers_comparison_agent = Agent(
     name="Peers Comparison Agent",
-    #model=Gemini(id="gemini-2.0-flash"),
-    model=google_gemini_llm,
+    model=Gemini(id="gemini-2.0-flash", temperature=0.3),
+    # model=google_gemini_llm,
     tools=[
         # use just the company info tool from Financial Analysis toolkit
         FinancialAnalysisTools(liquidity_ratios=False, company_info=True),
