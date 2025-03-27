@@ -12,6 +12,7 @@ Code is meant to be used for educational purposes only!
 At no point is this code/to be used as a replacement for sound
 financial investment advise from a Financial expert.
 """
+
 import os
 from dotenv import load_dotenv
 from textwrap import dedent
@@ -24,7 +25,6 @@ from agno.models.google import Gemini
 import google.generativeai as genai
 
 from tools.financial_analysis_tools import FinancialAnalysisTools
-from utils.llm import google_gemini_llm
 from utils.prompts import load_prompts_from_config
 
 # Load environment variables and configure Gemini
@@ -36,7 +36,9 @@ else:
     load_dotenv()
     genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-config_file_path = pathlib.Path(__file__).parent.parent / "config/financial_analysis_prompts2.yaml"
+config_file_path = (
+    pathlib.Path(__file__).parent.parent / "config/financial_analysis_prompts2.yaml"
+)
 assert (
     config_file_path.exists()
 ), f"FATAL ERROR: configuration file {config_file_path} does not exist!"
