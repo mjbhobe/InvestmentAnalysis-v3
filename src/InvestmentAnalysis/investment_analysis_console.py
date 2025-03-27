@@ -1,14 +1,16 @@
 from rich.console import Console
 import yfinance as yf
-from agno.utils.log import logger
 from textwrap import dedent
+
+from agno.utils.log import logger
+
 from agents.investment_analysis_agent import investment_analysis_agent
 
 
 def generate_investment_analysis(symbol: str):
     prompt = f"Generate investment analysis for {symbol}"
     return investment_analysis_agent.print_response(prompt, stream=True)
-
+    
 
 def is_valid_stock_symbol(symbol: str) -> bool:
     try:
