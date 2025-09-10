@@ -10,7 +10,7 @@ from agents.investment_analysis_agent import investment_analysis_agent
 def generate_investment_analysis(symbol: str):
     prompt = f"Generate investment analysis for {symbol}"
     return investment_analysis_agent.print_response(prompt, stream=True)
-    
+
 
 def is_valid_stock_symbol(symbol: str) -> bool:
     try:
@@ -45,9 +45,9 @@ while True:
         "[green]Enter stock symbol (as on Yahoo! Finance):[/green] "
     )
     stock_symbol = stock_symbol.strip().upper()
-    if not is_valid_stock_symbol(stock_symbol):
-        console.print(f"[red]{stock_symbol} does not appear to be a valid symbol!")
-        continue
+    # if not is_valid_stock_symbol(stock_symbol):
+    #     console.print(f"[red]{stock_symbol} does not appear to be a valid symbol!")
+    #     continue
     if stock_symbol.lower() in ["bye", "quit", "exit"]:
         break
     generate_investment_analysis(stock_symbol.upper())

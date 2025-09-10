@@ -62,16 +62,17 @@ if config is None:
 
 sentiment_analysis_agent = Agent(
     name="Sentiment Analysis Agent",
-    model=Gemini(id="gemini-2.0-flash", temperature=0.3),
+    model=Gemini(id="gemini-2.0-flash", temperature=0.0),
     # model=google_gemini_llm,
     tools=[SentimentAnalysisTools()],
-    goal=dedent(
-        """
-        Analyse latest company market news and determine the the overall market sentiment, 
-        which will serve as an input for a recommendation of the long term investment potential 
-        of the company.
-    """
-    ),
+    # goal=dedent(
+    #     """
+    #     Analyse latest company market news and determine the the overall market sentiment,
+    #     which will serve as an input for a recommendation of the long term investment potential
+    #     of the company.
+    # """
+    # ),
+    goal=dedent(config["prompts"]["goal"]),
     description=dedent(config["prompts"]["system_prompt"]),
     instructions=dedent(config["prompts"]["sentiment_analysis_prompt"]),
     expected_output=dedent(config["prompts"]["expected_output_format"]),

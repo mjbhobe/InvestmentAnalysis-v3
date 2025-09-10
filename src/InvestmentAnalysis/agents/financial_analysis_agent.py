@@ -60,15 +60,16 @@ if config is None:
 
 financial_analysis_agent = Agent(
     name="Financial Analysis Agent",
-    model=Gemini(id="gemini-2.0-flash", temperature=0.3),
+    model=Gemini(id="gemini-2.0-flash", temperature=0.0),
     # model=google_gemini_llm,
     tools=[FinancialAnalysisTools(enable_all=True)],
-    goal=dedent(
-        """
-        Analyse the financial ratios of a company and come up with a recommendation
-        of the long term investment potential of the company, with reasons for the same.
-    """
-    ),
+    # goal=dedent(
+    #     """
+    #     Analyse the financial ratios of a company and come up with a recommendation
+    #     of the long term investment potential of the company, with reasons for the same.
+    # """
+    # ),
+    goal=dedent(config["prompts"]["goal"]),
     description=dedent(config["prompts"]["system_prompt"]),
     instructions=dedent(config["prompts"]["financial_analysis_prompt"]),
     expected_output=dedent(config["prompts"]["expected_output_format"]),

@@ -1,5 +1,8 @@
 # financial_analysis_prompts.yaml - externalized prompts, for the financial analysis agent
 prompts:
+  goal: >
+    Analyse the financial ratios of a company and come up with a recommendation
+    of the long term investment potential of the company, with reasons for the same.
   system_prompt: >
     You are an ISDA certified financial analyst, who does a very thorough analysis
     of various financial ratios calculated on a company's stock data to decide

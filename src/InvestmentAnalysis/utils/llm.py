@@ -7,6 +7,7 @@ My experiments with Python, ML and Generative AI.
 Code is meant for illustration purposes ONLY. Use at your own risk!
 Author is not liable for any damages arising from direct/indirect use of this code.
 """
+
 import os
 from dotenv import load_dotenv
 
@@ -26,7 +27,5 @@ ONE_K = 1024
 
 # this is the LLM we'll use across all our agents
 google_gemini_llm = Gemini(
-    id="gemini-2.0-flash",
-    temperature = 0.1,
-    max_output_tokens=5*ONE_K
+    id="gemini-2.0-flash", temperature=0.0, max_output_tokens=5 * ONE_K
 )

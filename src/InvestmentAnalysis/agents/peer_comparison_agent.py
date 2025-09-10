@@ -60,20 +60,21 @@ if config is None:
 
 peers_comparison_agent = Agent(
     name="Peers Comparison Agent",
-    model=Gemini(id="gemini-2.0-flash", temperature=0.3),
+    model=Gemini(id="gemini-2.0-flash", temperature=0.0),
     # model=google_gemini_llm,
     tools=[
         # use just the company info tool from Financial Analysis toolkit
         FinancialAnalysisTools(liquidity_ratios=False, company_info=True),
         PeerComparisonTools(),
     ],
-    goal=dedent(
-        """
-        Compare the latest financial performance of the company with its peers as 
-        well as the industry benchmarks and come up with a comparison analysis of 
-        how the company stands viz-a-viz its competitors and within the industry.
-        """
-    ),
+    # goal=dedent(
+    #     """
+    #     Compare the latest financial performance of the company with its peers as
+    #     well as the industry benchmarks and come up with a comparison analysis of
+    #     how the company stands viz-a-viz its competitors and within the industry.
+    #     """
+    # ),
+    goal=dedent(config["prompts"]["goal"]),
     description=dedent(config["prompts"]["system_prompt"]),
     instructions=dedent(config["prompts"]["peer_comparison_instructions"]),
     expected_output=dedent(config["prompts"]["expected_output_format"]),
@@ -81,4 +82,3 @@ peers_comparison_agent = Agent(
     show_tool_calls=True,
     debug_mode=True,
 )
-
