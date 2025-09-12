@@ -1,3 +1,17 @@
+"""
+investment_analysis_streamlit.py - analysis of a company's financial & stock performance
+    using Yahoo Finance and then leveraging an LLM to analyze performance viz-a-viz
+    its peers and make a final investment recommendation.
+    Supports LLMs from OpenAI (paid), Anthropic (paid), and Gemini.
+    Groq is also supported, but it has issues with context window size when making
+    final recommendations. This is the streamlit based front-end for the analysis
+
+Author: Manish Bhobe
+My experiments with Python, ML and Generative AI.
+Code is meant for illustration purposes ONLY. Use at your own risk!
+Author is not liable for any damages arising from direct/indirect use of this code.
+"""
+
 import numpy as np
 import streamlit as st
 import yfinance as yf
@@ -29,7 +43,7 @@ st.markdown(
         margin: 0 auto;
     }
     </style>
-""",
+    """,
     unsafe_allow_html=True,
 )
 
@@ -39,14 +53,22 @@ if "analysis_generated" not in st.session_state:
 
 
 def is_valid_stock_symbol(symbol: str) -> bool:
-    try:
-        ticker = yf.Ticker(symbol.upper())
-        # try to get info, should raise exception if invalid
-        _ = ticker.info
-        return True
-    except Exception as e:
+    # try:
+    #     ticker = yf.Ticker(symbol.upper())
+    #     # try to get info, should raise exception if invalid
+    #     _ = ticker.info
+    #     return True
+    # except Exception as e:
+    #     logger.fatal(f"ERROR: {symbol.upper()} is not a valid stock symbol.")
+    #     return False
+    ticker = yf.Ticker(symbol.upper())
+    # try to download 1 days stock price
+    hist = ticker.history(period="1d")
+    # if I get some history, symbol is valid!
+    if hist.empty:
         logger.fatal(f"ERROR: {symbol.upper()} is not a valid stock symbol.")
         return False
+    return True
 
 
 def generate_investment_analysis(symbol: str, agent):
@@ -54,7 +76,7 @@ def generate_investment_analysis(symbol: str, agent):
     # return agent.print_response(prompt, stream=True)
     response: RunResponse = agent.run(prompt, markdown=True)
     return response.content, response.metrics
-    #response_stream : Iterator[RunResponse] = agent.run(prompt, markdown=True, stream=True)
+    # response_stream : Iterator[RunResponse] = agent.run(prompt, markdown=True, stream=True)
 
 
 # Main UI
@@ -66,13 +88,15 @@ st.markdown(
 st.markdown(
     """
     <center>
-    This multi-agent team based application does an investment analysis for publicly traded companies and comes up with an 
-    overall recommendation on the long term investment potential.
+    This multi-agent team based application does an investment analysis for publicly 
+    traded companies and comes up with an overall recommendation on the long term 
+    investment potential.
     <br/>
-    <div style='color: #777;'>     
+    <div style='color: #888;'>     
     <small>   
-    This version combines financial analysis, peer comparison and sentiment analysis to come up 
-    with an overall recommendation on the long term investment potential of the company. </small>
+    This version combines financial analysis, peer comparison and sentiment analysis to
+    come up with an overall recommendation on the long term investment potential of the company. 
+    </small>
     </div>
     </center>
     <p/>
@@ -131,7 +155,9 @@ if analyze_button and stock_symbol:
             total_tokens = np.array(metrics["total_tokens"]).sum()
             total_time = np.array(metrics["time"]).sum()
             # st.markdown(f"**Metrics**: {metrics}")
-            st.markdown(f"**Token Count** -> Input: {input_tokens:5d} - Output: {output_tokens:5d} - Total: {total_tokens:5d} | **Time Taken**: {total_time:2f}s")
+            st.markdown(
+                f"**Token Count** -> Input: {input_tokens:5d} - Output: {output_tokens:5d} - Total: {total_tokens:5d} | **Time Taken**: {total_time:2f}s"
+            )
             st.markdown(analysis)
 
         st.session_state.analysis_generated = True
@@ -143,9 +169,8 @@ if analyze_button and stock_symbol:
 st.markdown("---")
 st.markdown(
     """
-    <div style='text-align: center; color: #777;'>
-        <small>Developed by Manish Bhobé • Powered by: yfinance | Agno (for agents) | Google Gemini (LLM) | Streamlit (UI)</small>
-        <small>For educational purposes only!</small>
+    <div style='text-align: center; color: #888;'>
+        <small><b>Developed by:</b> Manish Bhobé • <b>Powered by:</b> yfinance | Agno (for agents) | Google Gemini (LLM) | Streamlit (UI) • <b>For educational purposes only!</b></small>
     </div>
     """,
     unsafe_allow_html=True,

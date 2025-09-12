@@ -48,7 +48,8 @@ def is_valid_ticker(symbol: str) -> bool:
         return False
 
 
-def get_liquidity_ratios(symbol: str) -> pd.DataFrame:
+# def get_liquidity_ratios(symbol: str) -> pd.DataFrame:
+def get_liquidity_ratios(symbol: str) -> str:
     """
     Use this function to get the end-of-financial-year values for liquidity ratios for a given symbol.
         - Current Ratio = Current Assets / Current Liabilities
@@ -97,7 +98,8 @@ def get_liquidity_ratios(symbol: str) -> pd.DataFrame:
     return ret
 
 
-def get_profitability_ratios(symbol: str) -> pd.DataFrame:
+# def get_profitability_ratios(symbol: str) -> pd.DataFrame:
+def get_profitability_ratios(symbol: str) -> str:
     """
     Use this function to get the end-of-financial-year values for profitability ratios for a given symbol.
         - Return on Equity (RoE) = Net Income / Shareholder's Equity
@@ -149,7 +151,8 @@ def get_profitability_ratios(symbol: str) -> pd.DataFrame:
     return ret
 
 
-def get_efficiency_ratios(symbol: str) -> pd.DataFrame:
+# def get_efficiency_ratios(symbol: str) -> pd.DataFrame:
+def get_efficiency_ratios(symbol: str) -> str:
     """
     Use this function to get the end-of-financial-year values for efficiency ratios for a given symbol.
         - Asset Turnover Ratio = Revenue / Total Assets
@@ -195,7 +198,8 @@ def get_efficiency_ratios(symbol: str) -> pd.DataFrame:
     return ret
 
 
-def get_valuation_ratios(symbol: str) -> pd.DataFrame:
+# def get_valuation_ratios(symbol: str) -> pd.DataFrame:
+def get_valuation_ratios(symbol: str) -> str:
     """
     Use this function to get the end-of-financial-year values for valuation ratios for a given symbol.
         - Price-to-Earnings Ratio (P/E) - Price per Share / Earnings per Share (EPS)
@@ -252,7 +256,8 @@ def get_valuation_ratios(symbol: str) -> pd.DataFrame:
     return ret
 
 
-def get_leverage_ratios(symbol: str) -> pd.DataFrame:
+# def get_leverage_ratios(symbol: str) -> pd.DataFrame:
+def get_leverage_ratios(symbol: str) -> str:
     """
     Use this function to get the end-of-financial-year values for leverage ratios for a given symbol.
         - Debt-to-Equity Ratio (D/E) - Total Debt / Shareholders Equity
@@ -288,7 +293,8 @@ def get_leverage_ratios(symbol: str) -> pd.DataFrame:
     return ret
 
 
-def get_performance_and_growth_metrics(symbol: str) -> pd.DataFrame:
+# def get_performance_and_growth_metrics(symbol: str) -> pd.DataFrame:
+def get_performance_and_growth_metrics(symbol: str) -> str:
     """
     Use this function to get the end-of-financial-year values for performance & growth metrics for a given symbol.
         - Revenue Growth (%) = (Current Year Revenue - Previous Year Revenue) / Previous Year Revenue
