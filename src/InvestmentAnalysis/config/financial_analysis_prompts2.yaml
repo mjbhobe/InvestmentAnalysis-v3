@@ -20,9 +20,9 @@ prompts:
       leverage ratios and performance and growth metrics for the stock symbol provided
     - Dispay the financial ratios as tables. Data in each table will be sorted by date
       in the first column, which is the financial-year-end-date. Each ratio then appears
-      in a column on it's own, wth appropriate column heading.
+      in a column on it's own, with appropriate column heading.
     - Summarize your observations in a bulleted list - these should be one bullet per financial
-      ratios table.
+      ratio displayed in the table.
   expected_output_format: >
     A professional financial analysis report in markdown format:
 
@@ -32,24 +32,38 @@ prompts:
     ### Financial Ratio Analysis
     ##### Liquidity Ratios
     {Liquidity ratios calculation table}
+    {observations on the liquidity ratios}
 
     ##### Profitability Ratios
     {Profitability ratios calculation table}
+    {observations on the profitability ratios}
 
     ##### Efficiency Ratios
     {Efficiency ratios calculation table}
+    {observations on the efficiency ratios}
 
     ##### Valuation Ratios
     {Valuation ratios calculation table}
+    {observations on the valuation ratios}
 
     ##### Leverage Ratios
     {Leverage ratios calculation table}   
+    {observations on the leverage ratios}
 
     ##### Performance and Growth Metrics
     {Performance and Growth Metrics calculation table}  
+    {observations on the performance and growth metrics}
 
     #### Analysis of Performance Ratios
-    {Your observations on the above tables, as a bulleted list, one bullet per table}
+    {Your observations on the above tables, as a bulleted list, one bullet point per table}
+    {Draw the following conclusions from your observations:
+    - Is the company growing revenue and profit sustainably?
+    - Is it over-leveraged or overvalued?
+    - Are margins stable or volatile?
+    - Is cash generation real or profit is accounting-based?
+    - Are returns on capital adequate (>12–15%)? 
+    }
+    {your recommendation based on your observations and the conclusions you have drawn from your observations}
   liquidity_ratios_analysis_prompt: >
     The table listed below are calculations for liquidity ratios for {company_name},
     calculated at the financial-year-end date. The data is organized in a table, sorted
